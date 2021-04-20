@@ -2,7 +2,8 @@
     "name": "findnr/cym-phptools",
     "description": "php",
     "require": {
-        "firebase/php-jwt": "^5.2"
+        "firebase/php-jwt": "^5.2",
+        "endroid/qr-code": "^4.1"
     },
     "license": "Apache-2.0",
     "authors": [
