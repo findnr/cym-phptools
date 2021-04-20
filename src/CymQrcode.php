@@ -33,8 +33,6 @@ class CymQrcode
             ->margin(5)
             ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
             ->logoPath(__DIR__ . './logot.png')
-            ->labelFont(new NotoSans(20))
-            ->labelAlignment(new LabelAlignmentCenter())
             ->build();
         $result->saveToFile('/qrcodessss.png');
     }
