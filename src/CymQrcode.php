@@ -13,9 +13,12 @@ use Endroid\QrCode\Writer\PngWriter;
 class CymQrcode
 {
     private $key;
+
     private $data;
+
     private $str;
-    public function getXiehuiQrcode($key, $data, $name)
+
+    public static function getXiehuiQrcode($key, $data, $name)
     {
         $key_str = self::encode();
         $content = 'http://cre.qrcode.gzwea.com/cre/' . $name . '/' + $key_str;
