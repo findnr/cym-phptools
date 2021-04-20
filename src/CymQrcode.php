@@ -34,7 +34,7 @@ class CymQrcode
             ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
             ->logoPath(__DIR__ . '/logot.png')
             ->build();
-        $result->saveToFile('/qrcodessss.png');
+        $result->saveToFile(__DIR__ . '/qrcodessss.png');
     }
     public function getInfo()
     {
