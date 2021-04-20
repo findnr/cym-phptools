@@ -1,13 +1,11 @@
 <?php
 
-namespace CymPhptools;
-
-include '../vendor/autoload.php';
+use CymPhptools\CymJwt;
 
 
 $data['ttt'] = 'dfdsafds';
 $name = 'fdsa/fdsaf';
 
-$ttt = new CymQrcode();
+new CymJwt();
 
 // $ttt->getXiehuiQrcode('124213213', $data, $name);
