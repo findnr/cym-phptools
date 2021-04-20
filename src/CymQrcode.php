@@ -18,10 +18,12 @@ class CymQrcode
 
     private $str;
 
-    public static function getXiehuiQrcode($key, $data, $name)
+    public function getXiehuiQrcode($key, $data, $name)
     {
-        $key_str = self::encode();
+        $key_str = $this->encode();
+
         $content = 'http://cre.qrcode.gzwea.com/cre/' . $name . '/' + $key_str;
+
         $result = Builder::create()
             ->writer(new PngWriter())
             ->writerOptions([])
@@ -36,7 +38,7 @@ class CymQrcode
             ->build();
         $result->saveToFile('/qrcodessss.png');
     }
-    public static function getInfo()
+    public function getInfo()
     {
     }
     private function encode()
