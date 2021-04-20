@@ -33,8 +33,8 @@ class CymQrcode
             ->margin(5)
             ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
             ->logoPath(__DIR__ . '/logot.png')
-            ->logoResizeToWidth(50)
-            ->logoResizeToHeight(50)
+            ->logoResizeToWidth(80)
+            ->logoResizeToHeight(80)
             ->build();
         $result->saveToFile(__DIR__ . '/qrcodessss.png');
     }
