@@ -20,6 +20,7 @@ class CymQrcode
 
     public function getXiehuiQrcode($data)
     {
+        $this->key = $data['config']['key'];
         $this->data = $data['data'];
         $key_str = $this->encode();
 
