@@ -18,11 +18,12 @@ class CymQrcode
 
     private $str;
 
-    public function getXiehuiQrcode($key, $data, $name)
+    public function getXiehuiQrcode($data)
     {
+        $this->data = $data['data'];
         $key_str = $this->encode();
 
-        $content = 'http://cre.qrcode.gzwea.com/cre/' . $name . '/' . $key_str;
+        $content = 'http://api.gzwea.com/' . $data['control'] . '/' . $key_str;
 
         $result = Builder::create()
             ->writer(new PngWriter())
@@ -30,13 +31,13 @@ class CymQrcode
             ->data($content)
             ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
             ->size(200)
-            ->margin(5)
+            ->margin(10)
             ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
-            ->logoPath(__DIR__ . '/logot.png')
+            ->logoPath($data['config']['logo_path'])
             ->logoResizeToWidth(80)
             ->logoResizeToHeight(80)
             ->build();
-        $result->saveToFile(__DIR__ . '/qrcodessss.png');
+        $result->saveToFile($data['config']['save_qrcode']);
     }
     public function getInfo()
     {
