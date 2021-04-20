@@ -22,7 +22,7 @@ class CymQrcode
     {
         $key_str = $this->encode();
 
-        $content = 'http://cre.qrcode.gzwea.com/cre/' . $name . '/' + $key_str;
+        $content = 'http://cre.qrcode.gzwea.com/cre/' . $name . '/' . $key_str;
 
         $result = Builder::create()
             ->writer(new PngWriter())
