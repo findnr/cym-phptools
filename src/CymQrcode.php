@@ -14,7 +14,9 @@ class CymQrcode
     private $data;
 
     private $str;
-
+    /**
+     * 协会内部使用
+     */
     public function getXiehuiQrcode($data)
     {
         $this->key = $data['config']['key'];
@@ -41,9 +43,28 @@ class CymQrcode
             ->build();
         $result->saveToFile($data['config']['save_qrcode']);
     }
-    public function getInfo()
-    {
+    /**
+     * 获取二维码
+     */
+    public function getQrcode(){
+
     }
+    /**
+     * 获取解密数据
+     */
+    public function getInfo($data=[])
+    {
+        if(empty($data['key'])){
+
+        }
+        if(empty($data['str'])){
+
+        }
+        $this->key = $data['key'];
+        $this->str = $data['str'];
+        return $this->decode();        
+    }
+
     private function encode()
     {
         $str_data = json_encode($this->data);
@@ -53,9 +74,8 @@ class CymQrcode
     }
     private function decode()
     {
-
         $decrypted = openssl_decrypt(base64_decode($this->str), 'AES-128-ECB', $this->key, OPENSSL_RAW_DATA);
         $data = json_decode($decrypted, true);
-        return $decrypted;
+        return $data;
     }
 }
