@@ -23,7 +23,7 @@ class CymQrcode
 
         $margin = empty($data['margin']) ? 0 : (int)$data['margin'];
 
-        $size = empty($data['size']) ? 200 : (int)$data['margin'];
+        $size = empty($data['size']) ? 200 : (int)$data['size'];
 
         $content = 'http://api.gzwea.com/' . $data['control'] . '/' . $key_str;
 
