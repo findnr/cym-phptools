@@ -2,11 +2,8 @@
 
 namespace  CymPhptools;
 
-use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
-use Endroid\QrCode\Label\Alignment\LabelAlignmentCenter;
-use Endroid\QrCode\Label\Font\NotoSans;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
 use Endroid\QrCode\Writer\PngWriter;
 
@@ -24,6 +21,10 @@ class CymQrcode
         $this->data = $data['data'];
         $key_str = $this->encode();
 
+        $margin = empty($data['margin']) ? 0 : (int)$data['margin'];
+
+        $size = empty($data['size']) ? 200 : (int)$data['margin'];
+
         $content = 'http://api.gzwea.com/' . $data['control'] . '/' . $key_str;
 
         $result = Builder::create()
@@ -31,8 +32,8 @@ class CymQrcode
             ->writerOptions([])
             ->data($content)
             ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
-            ->size(200)
-            ->margin(10)
+            ->size($size)
+            ->margin($margin)
             ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
             ->logoPath($data['config']['logo_path'])
             ->logoResizeToWidth(80)
