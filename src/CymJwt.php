@@ -3,6 +3,7 @@
 namespace CymPhptools;
 
 use Firebase\JWT\JWT;
+
 /**
  *    iss: jwt签发者 (可选)
  *    sub: jwt所面向的用户 (可选) 
@@ -12,7 +13,8 @@ use Firebase\JWT\JWT;
  *    iat: jwt的签发时间 
  *    jti: jwt的唯一身份标识，主要用来作为一次性token。
  */
-class CymJwt{
+class CymJwt
+{
     /**
      * @param array $config 配制信息
      *                      key: 加密密钥
@@ -21,23 +23,23 @@ class CymJwt{
      * 
      *                      
      */
-    public static function set($config)
+    public static function token_encode($config)
     {
-        $time=time();
-        $key=$config['key'];
-        $token['iss'] ='';
-        $token['aud']= '';
+        $time = time();
+        $key = $config['key'];
+        $token['iss'] = '';
+        $token['aud'] = '';
         $token['iat'] = $time;
         $token['exp'] = $time + $config['time'];
-        $token['data']=$config['data'];
-        return JWT::encode($token,$key);
+        $token['data'] = $config['data'];
+        return JWT::encode($token, $key);
     }
     /**
      * @param array $config 配制信息
      *                      key: 加密密钥
      *                      token: token字符串
      */
-    public static function get($config)
+    public static function token_decode($config)
     {
         $key = $config['key'];
         $token = $config['token'];
@@ -45,15 +47,15 @@ class CymJwt{
             $decoded = JWT::decode($token, $key, ['HS256']); //HS256方式，这里要和签发的时候对应
             $arr = (array)$decoded;
             return $arr;
-        } catch(\Firebase\JWT\SignatureInvalidException $e) {  //签名不正确
+        } catch (\Firebase\JWT\SignatureInvalidException $e) {  //签名不正确
             $arr['action'] = 1;
             $arr['msg'] = "密钥不正确";
             return $arr;
-        }catch(\Firebase\JWT\BeforeValidException $e) {  // 签名在某个时间点之后才能用
+        } catch (\Firebase\JWT\BeforeValidException $e) {  // 签名在某个时间点之后才能用
             $arr['action'] = 1;
             $arr['msg'] = "签名在某个时间点之后才能用";
             return $arr;
-        }catch(\Firebase\JWT\ExpiredException $e) {  // token过期
+        } catch (\Firebase\JWT\ExpiredException $e) {  // token过期
             $arr['action'] = 1;
             $arr['msg'] = "token过期";
             return $arr;
