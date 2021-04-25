@@ -46,8 +46,49 @@ class CymQrcode
     /**
      * 获取二维码
      */
-    public function getQrcode(){
-
+    public function getQrcode($data){
+        $config=$data['config'];
+        $this->data=$data['data'];
+        if(empty($config['key'])){
+            $key_str = $this->decode();
+            $url = $config['url'].'?keystr='.$key_str;
+        }else{
+            $url = $config['url'].'?';
+            $i=0;
+            foreach ($this->data as $k => $v) {
+                if($i==0){
+                    $url=$url.$k.'='.$v;
+                }else{
+                    $url = $url.'&'.$k.'='.$v
+                }
+                $i++;
+            }
+        }
+        $size =  empty($config['size'])?200:(int) $config['size'];
+        $margin = empty($config['margin'])?10:(int) $config['margin'];
+        try {
+            $result = Builder::create();
+            $result->writer(new PngWriter())->writerOptions([]);
+            $result->data($content)->errorCorrectionLevel(new ErrorCorrectionLevelHigh());
+            $result->size($size)->margin($margin)->roundBlockSizeMode(new RoundBlockSizeModeMargin());
+            if(!empty($config['logo_path'])){
+                $logo_width=(empty($config['logo_width']) || !((int) $config['logo_width']))?80:(int) $config['logo_width'];
+                $logo_height=empty($config['logo_height']) || !((int) $config['logo_height'])?80:(int) $config['logo_height'];
+                $result->logoPath($data['config']['logo_path'])->logoResizeToWidth($logo_width)->logoResizeToHeight($logo_height);
+            }
+            $result->build();
+            $result->saveToFile($config['save_path']);
+            $res_data['action']=1;
+            $res_data['msg']='生成成功';
+            $res_data['save_path']=$config['save_path'];
+            return $res_data;
+        } catch (\Throwable $th) {
+            //throw $th;
+            $res_data['action'] = 0;
+            $res_data['msg'] = "#getQrcode function error";
+            $res_data['info'] = $th;
+            return $res_data;
+        }
     }
     /**
      * 获取解密数据
