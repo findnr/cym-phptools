@@ -3,7 +3,8 @@
     "description": "php",
     "require": {
         "firebase/php-jwt": "^5.2",
-        "endroid/qr-code": "^4.1"
+        "endroid/qr-code": "^4.1",
+        "guzzlehttp/guzzle": "^7.3"
     },
     "license": "Apache-2.0",
     "authors": [
