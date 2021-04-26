@@ -23,7 +23,9 @@ class CymHttp
         $response = $client->request('POST', $url, [
             'form_params' => $data
         ]);
-        return $response;
+        $data['info'] = $response;
+        $data['data'] = (string) $response->getBody();
+        return $data;
     }
     /**
      * 
