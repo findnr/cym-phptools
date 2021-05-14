@@ -45,18 +45,20 @@ class CymJwt
         $token = $config['token'];
         try {
             $decoded = JWT::decode($token, $key, ['HS256']); //HS256方式，这里要和签发的时候对应
-            $arr = (array)$decoded;
+            $arr['data'] = (array)$decoded;
+            $arr['msg'] = "获取成功";
+            $arr['code'] = 1;
             return $arr;
         } catch (\Firebase\JWT\SignatureInvalidException $e) {  //签名不正确
-            $arr['action'] = 1;
+            $arr['code'] = 2;
             $arr['msg'] = "密钥不正确";
             return $arr;
         } catch (\Firebase\JWT\BeforeValidException $e) {  // 签名在某个时间点之后才能用
-            $arr['action'] = 1;
+            $arr['code'] = 2;
             $arr['msg'] = "签名在某个时间点之后才能用";
             return $arr;
         } catch (\Firebase\JWT\ExpiredException $e) {  // token过期
-            $arr['action'] = 1;
+            $arr['code'] = 3;
             $arr['msg'] = "token过期";
             return $arr;
         }
