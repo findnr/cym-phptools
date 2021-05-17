@@ -2,7 +2,7 @@
 /*
  * @Author: 程英明
  * @Date: 2021-04-23 15:39:24
- * @LastEditTime: 2021-05-17 11:32:32
+ * @LastEditTime: 2021-05-17 14:15:07
  * @LastEditors: 程英明
  * @Description: 
  * @FilePath: \cym-phptools\src\CymHttp.php
@@ -33,7 +33,7 @@ class CymHttp
             'form_params' => $data
         ]);
         // $data['info'] = $response;
-        $data['data'] = json_decode((string) $response->getBody());
+        $data['data'] = json_decode((string) $response->getBody(), true);
         return $data['data'];
     }
     /**
