@@ -2,7 +2,7 @@
 /*
  * @Author: 程英明
  * @Date: 2021-04-23 15:39:24
- * @LastEditTime: 2021-05-17 14:15:07
+ * @LastEditTime: 2022-03-03 11:29:52
  * @LastEditors: 程英明
  * @Description: 
  * @FilePath: \cym-phptools\src\CymHttp.php
@@ -32,8 +32,9 @@ class CymHttp
         $response = $client->request('POST', $url, [
             'form_params' => $data
         ]);
-        // $data['info'] = $response;
-        $data['data'] = json_decode((string) $response->getBody(), true);
+        $is_str = (string) $response->getBody();
+        $is_data = json_decode($is_str, true);
+        $data['data'] = $is_data ? $is_data : $is_str;
         return $data['data'];
     }
     /**
